@@ -1,9 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
+import ListaEstadios from './componentes/ListaEstadios';
 
 function App() {
   return (
     <div className="App">
+      <ListaEstadios />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
