@@ -1,4 +1,8 @@
 import { useEffect, useState } from "react";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Card from "react-bootstrap/Card";
 
 function ListaEstadios() {
   const [lista, setLista] = useState([]);
@@ -26,35 +30,48 @@ function ListaEstadios() {
     .catch((erro) => console.error(erro));
 }, []);
 
-  const rows = lista.map((estadio) => {
-    return (
-      <tr key={estadio.id}>
-        <td>{estadio.nome}</td>
-        <td>{estadio.cidade}</td>
-        <td>{estadio.pais}</td>
-        <td>{estadio.capacidade}</td>
-      </tr>
-    );
-  });
+  const cartoes = lista.map((estadio) => {
+  return (
+    <Col key={estadio.id}>
+      <Card className="h-100">
+        <Card.Img
+          variant="top"
+          src={estadio.imagemUrl}
+          alt={estadio.nome}
+          style={{ height: "200px", objectFit: "cover" }}
+        />
+
+        <Card.Body>
+          <Card.Title as="h2" className="h5">
+            {estadio.nome}
+          </Card.Title>
+
+          <Card.Text>
+            {estadio.cidade}, {estadio.pais}
+          </Card.Text>
+
+          <Card.Text>
+            Capacidade: {estadio.capacidade}
+          </Card.Text>
+          
+          <Card.Text> 
+            {estadio.descricao}
+          </Card.Text>
+        </Card.Body>
+      </Card>
+    </Col>
+  );
+});
 
   return (
-    <div>
-      <h1>Lista de estádios</h1>
+  <Container className="py-4">
+    <h1 className="mb-4">Lista de estádios</h1>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Cidade</th>
-            <th>País</th>
-            <th>Capacidade</th>
-          </tr>
-        </thead>
-
-        <tbody>{rows}</tbody>
-      </table>
-    </div>
-  );
+    <Row xs={1} md={2} lg={3} className="g-4">
+      {cartoes}
+    </Row>
+  </Container>
+);
 }
 
 export default ListaEstadios;
